@@ -44,10 +44,9 @@ public class TaskManager {
 
     public List<Task> getTasksByUser(int userId) {
         List<Task> tasks = new ArrayList<>();
-        String query = "SELECT * FROM task WHERE user_id = ?";
+        String query = "SELECT * FROM task WHERE user_id = '" + userId + "'";
         try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, userId);
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 Task task = getTaskFromResultSet(resultSet);
@@ -106,6 +105,24 @@ public class TaskManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    public List<Task> searchTask(String searc) {
+        String query = "SELECT * FROM task WHERE `name` LIKE ?";
+        List<Task> tasks = new LinkedList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + searc + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = getTaskFromResultSet(resultSet);
+                task.setUser(userManager.getUserById(task.getUserId()));
+                tasks.add(task);
+            }
+            return tasks;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
