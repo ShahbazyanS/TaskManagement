@@ -13,6 +13,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/deleteUser")
 public class DeleteUserServlet extends HttpServlet{
 
+
     private UserManager userManager = new UserManager();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -16,6 +16,7 @@
     List<Task> tasks = (List<Task>) request.getAttribute("searchList");
     request.getAttribute("search");
 %>
+
 <div>
     All Tasks:<br>
     <table border="1">
