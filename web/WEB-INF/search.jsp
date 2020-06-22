@@ -1,11 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="model.Task" %><%--
-  Created by IntelliJ IDEA.
-  User: Windows 10
-  Date: 21.06.2020
-  Time: 12:50
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.Task" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

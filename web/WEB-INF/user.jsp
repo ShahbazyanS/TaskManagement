@@ -1,6 +1,6 @@
 <%@ page import="model.Task" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,7 +8,14 @@
 </head>
 <body>
 <%List<Task>  tasks = (List<Task>) request.getAttribute("tasks");%>
-<a href="/logout">logout</a>
+
+<a href="/logout">logout</a><br>
+
+<%User user = (User) session.getAttribute("user");%>
+welcome <%=user.getName()%>
+<%if (user.getPictureUrl() != null) {%>
+<img src="/image?path=<%=user.getPictureUrl()%>" width="200px">
+<%}%>
 <div>
     All Tasks:<br>
     <table border="1">
@@ -38,7 +45,7 @@
             </form> </td>
         </tr>
         <%
-            }%>
+                 }%>
     </table>
 </div>
 

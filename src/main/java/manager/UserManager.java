@@ -23,7 +23,7 @@ public class UserManager {
 
     public void addUser(User user) {
 
-        String query = "INSERT INTO user (`name`, surname, email, password, user_type) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO user (`name`, surname, email, password, user_type, picture_url) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getName());
@@ -31,6 +31,7 @@ public class UserManager {
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setString(5, user.getUserType().name());
+            preparedStatement.setString(6, user.getPictureUrl());
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
@@ -50,6 +51,7 @@ public class UserManager {
                     .email(resultSet.getString(4))
                     .password(resultSet.getString(5))
                     .userType(UserType.valueOf(resultSet.getString(6)))
+                    .pictureUrl(resultSet.getString(7))
                     .build();
         } catch (SQLException e) {
             e.printStackTrace();

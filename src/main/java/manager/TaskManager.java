@@ -107,12 +107,12 @@ public class TaskManager {
         }
     }
 
-    public List<Task> searchTask(String searc) {
+    public List<Task> searchTask(String search) {
         String query = "SELECT * FROM task WHERE `name` LIKE ?";
         List<Task> tasks = new LinkedList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, "%" + searc + "%");
+            statement.setString(1, "%" + search + "%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Task task = getTaskFromResultSet(resultSet);

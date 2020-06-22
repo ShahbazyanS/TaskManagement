@@ -19,7 +19,7 @@
 <div style="width: 800px">
     <div style="width: 50%; float: left">
         Add User: <br>
-        <form action="/userRegister" method="post">
+        <form action="/userRegister" method="post" enctype="multipart/form-data">
             <input type="text" name="name" placeholder="name"><br>
             <input type="text" name="surname" placeholder="surname"><br>
             <input type="text" name="email" placeholder="email"><br>
@@ -27,8 +27,9 @@
             <select name="user_type">
                 <option value="USER">USER</option>
                 <option value="MANAGER">MANAGER</option>
-                <input type="submit" value="register"><br>
-            </select>
+            </select><br>
+            <input type="file" name="image"><br>
+            <input type="submit" value="register">
         </form>
     </div>
     <div style="width: 50%; float: left">
