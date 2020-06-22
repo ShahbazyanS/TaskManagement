@@ -23,7 +23,7 @@ public class SearchTaskServlet extends HttpServlet {
         List<Task> tasks = taskManager.searchTask(search);
         req.setAttribute("searchList", tasks);
         req.setAttribute("search", search);
-        resp.sendRedirect("/WEB-INF/search.jsp");
+        req.getRequestDispatcher("/WEB-INF/search.jsp").forward(req,resp);
 
     }
 }
