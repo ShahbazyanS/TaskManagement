@@ -1,7 +1,8 @@
-<%@ page import="model.Task" %>
-<%@ page import="java.util.List" %>
 <%@ page import="model.Comment" %>
+<%@ page import="model.Task" %>
 <%@ page import="model.User" %>
+<%@ page import="model.UserType" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -62,7 +63,7 @@
 
     <li><%=comment.getUser().getName()%> <%=comment.getUser().getSurname()%><br><%=comment.getComment()%>
         - <%=comment.getDate()%>
-        <%if (comment.getUser().getEmail().equals(user.getEmail())) {%>
+        <%if (comment.getUser().getEmail().equals(user.getEmail()) | user.getUserType() == UserType.MANAGER) {%>
         <a href="/deleteComment?id=<%=comment.getId()%>">
             delete
         </a><%}%></li>

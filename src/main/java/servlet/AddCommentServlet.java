@@ -19,7 +19,6 @@ import java.util.Date;
 public class AddCommentServlet extends HttpServlet {
     private CommentManager commentManager = new CommentManager();
     private TaskManager taskManager = new TaskManager();
-//    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
