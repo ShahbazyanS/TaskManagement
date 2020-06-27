@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <%
@@ -11,16 +12,16 @@
     request.getAttribute("search");
 %>
 
-<div>
-    All Tasks:<br>
+<div class="search">
+   <h2> All Tasks:</h2><br>
     <table border="1">
         <tr>
-            <th>name</th>
-            <th>description</th>
-            <th>deadline</th>
-            <th>status</th>
-            <th>user</th>
-            <th>update status</th>
+            <th><h2>name</h2></th>
+            <th><h2>description</h2></th>
+            <th><h2>deadline</h2></th>
+            <th><h2>status</h2></th>
+            <th><h2>user</h2></th>
+            <th><h2>update status</h2></th>
         </tr>
         <%
             for (Task task : tasks) { %>

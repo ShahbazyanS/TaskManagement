@@ -6,19 +6,20 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <%List<User> users = (List<User>) request.getAttribute("users");%>
 <%List<Task> tasks = (List<Task>) request.getAttribute("tasks");%>
-<form action="/searchTask" method="post">
+<form action="/searchTask" method="post" style="margin-left: 1000px">
     <input type="search" name="search" placeholder="search">
     <button type="submit">search</button>
 </form>
-<a href="/logout">logout</a>
-<div style="width: 800px">
-    <div style="width: 50%; float: left">
-        Add User: <br>
+<a href="/logout" style="text-decoration: none; color: black">logout</a>
+<div class="manager">
+    <div class="add_user">
+        <h2> Add User: </h2>
         <form action="/userRegister" method="post" enctype="multipart/form-data">
             <input type="text" name="name" placeholder="name"><br>
             <input type="text" name="surname" placeholder="surname"><br>
@@ -32,8 +33,8 @@
             <input type="submit" value="register">
         </form>
     </div>
-    <div style="width: 50%; float: left">
-        Add Task: <br>
+    <div class="add_task">
+      <h2>  Add Task: </h2>
         <form action="/addTask" method="post">
             <input type="text" name="name" placeholder="name"><br>
             <textarea name="description" placeholder="description"></textarea><br>
@@ -57,16 +58,16 @@
     </div>
 </div>
 
-<input name="">
-<div>
+
+<div class="all_users">
     All Users:<br>
     <table border="1">
         <tr>
-            <th>name</th>
-            <th>surname</th>
-            <th>email</th>
-            <th>type</th>
-            <th>delete user</th>
+            <th><h2>name</h2></th>
+            <th><h2>surname</h2></th>
+            <th><h2>email</h2></th>
+            <th><h2>type</h2></th>
+            <th><h2>delete user</h2></th>
         </tr>
         <%
             for (User user : users) { %>
@@ -81,14 +82,14 @@
             </td>
             <td><%if (user.getUserType() == UserType.USER || !user.getEmail().equals("admin@mail.com")) {%><a
                     href="/deleteUser?id=<%=user.getId()%>">
-               delete
+                delete
             </a><%}%></td>
         </tr>
         <%
             }%>
     </table>
 </div>
-<div>
+<div class="all_tasks">
     All Tasks:<br>
     <table border="1">
         <tr>

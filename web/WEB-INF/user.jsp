@@ -5,27 +5,33 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <%List<Task> tasks = (List<Task>) request.getAttribute("tasks");%>
 
-<a href="/logout">logout</a><br>
+<a href="/logout" style="text-decoration: none; color: black">logout</a><br>
 
 <%User user = (User) session.getAttribute("user");%>
-welcome <%=user.getName()%>
+<div class="user_name">
+    <h1>welcome <%=user.getName()%>
+    </h1>
+</div>
 <%if (user.getPictureUrl() != null) {%>
-<img src="/image?path=<%=user.getPictureUrl()%>" width="200px">
+<div class="user_image">
+    <img src="/image?path=<%=user.getPictureUrl()%>" width="200px">
+</div>
 <%}%>
-<div>
-    All Tasks:<br>
+<div class="user_task">
+   <h2> All Tasks:</h2><br>
     <table border="1">
         <tr>
-            <th>name</th>
-            <th>description</th>
-            <th>deadline</th>
-            <th>status</th>
-            <th>user</th>
-            <th>update status</th>
+            <th><h2>name</h2></th>
+            <th><h2>description</h2></th>
+            <th><h2>deadline</h2></th>
+            <th><h2>status</h2></th>
+            <th><h2>user</h2></th>
+            <th><h2>update status</h2></th>
         </tr>
         <%
             for (Task task : tasks) { %>
