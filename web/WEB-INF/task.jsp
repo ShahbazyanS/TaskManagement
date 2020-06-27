@@ -1,5 +1,6 @@
 <%@ page import="model.Task" %>
 <%@ page import="java.util.List" %>
+<%@ page import="model.Comment" %>
 <%@ page import="model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -7,15 +8,13 @@
     <title>Title</title>
 </head>
 <body>
-<%List<Task> tasks = (List<Task>) request.getAttribute("tasks");%>
+<%
+    Task task = (Task) request.getAttribute("taskById");
+//    User user = (User) request.getAttribute("user");
+    List<Comment> comments = (List<Comment>) request.getAttribute("comments");
+    User user = (User) session.getAttribute("user");
+%>
 
-<a href="/logout">logout</a><br>
-
-<%User user = (User) session.getAttribute("user");%>
-welcome <%=user.getName()%>
-<%if (user.getPictureUrl() != null) {%>
-<img src="/image?path=<%=user.getPictureUrl()%>" width="200px">
-<%}%>
 <div>
     All Tasks:<br>
     <table border="1">
@@ -27,18 +26,16 @@ welcome <%=user.getName()%>
             <th>user</th>
             <th>update status</th>
         </tr>
-        <%
-            for (Task task : tasks) { %>
         <tr>
-            <td><a href="/taskById?task_id=<%=task.getId()%>"><%=task.getName()%>
-            </a></td>
+            <td><%=task.getName()%>
+            </td>
             <td><%=task.getDescription()%>
             </td>
             <td><%=task.getDeadline()%>
             </td>
             <td><%=task.getStatus().name()%>
             </td>
-            <td><%=task.getUser().getName() + " " + task.getUser().getSurname()%>
+            <td><%=user.getName() + " " + user.getSurname()%>
             </td>
             <td>
                 <form action="/changeTaskStatus" method="post">
@@ -51,10 +48,26 @@ welcome <%=user.getName()%>
                 </form>
             </td>
         </tr>
-        <%}%>
     </table>
 </div>
+<form action="/addComment" method="post">
+    <input type="hidden" name="task_id" value="<%=task.getId()%>">
+    <input type="text" name="comment"><br>
+    <input type="submit" name="comment">
+</form>
+<br>
+<ul>
+    <%
+        for (Comment comment : comments) {%>
 
+    <li><%=comment.getUser().getName()%> <%=comment.getUser().getSurname()%><br><%=comment.getComment()%>
+        - <%=comment.getDate()%>
+        <%if (comment.getUser().getEmail().equals(user.getEmail())) {%>
+        <a href="/deleteComment?id=<%=comment.getId()%>">
+            delete
+        </a><%}%></li>
 
+    <%}%>
+</ul>
 </body>
 </html>

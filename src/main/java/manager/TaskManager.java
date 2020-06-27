@@ -3,7 +3,6 @@ package manager;
 import db.DBConnectionProvider;
 import model.Status;
 import model.Task;
-import model.User;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -120,6 +119,21 @@ public class TaskManager {
                 tasks.add(task);
             }
             return tasks;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Task getTaskById(long id) {
+        String query = "SELECT * FROM task WHERE id = " + id;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                return getTaskFromResultSet(resultSet);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -81,7 +81,7 @@
             </td>
             <td><%if (user.getUserType() == UserType.USER || !user.getEmail().equals("admin@mail.com")) {%><a
                     href="/deleteUser?id=<%=user.getId()%>">
-                <button type="submit">delete</button>
+               delete
             </a><%}%></td>
         </tr>
         <%
@@ -101,7 +101,8 @@
         <%
             for (Task task : tasks) { %>
         <tr>
-            <td><%=task.getName()%>
+            <td><a href="/taskById?task_id=<%=task.getId()%>"><%=task.getName()%>
+            </a>
             </td>
             <td><%=task.getDescription()%>
             </td>
