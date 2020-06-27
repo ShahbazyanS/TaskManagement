@@ -11,7 +11,6 @@
 <body>
 <%
     Task task = (Task) request.getAttribute("taskById");
-//    User user = (User) request.getAttribute("user");
     List<Comment> comments = (List<Comment>) request.getAttribute("comments");
     User user = (User) session.getAttribute("user");
 %>

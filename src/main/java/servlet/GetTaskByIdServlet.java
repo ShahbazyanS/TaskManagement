@@ -30,7 +30,9 @@ public class GetTaskByIdServlet extends HttpServlet {
         List<Comment> comments = commentManager.getCommentsByTaskId(taskId);
         req.setAttribute("comments", comments);
         Task task = taskManager.getTaskById(taskId);
-        User user = (User) req.getSession().getAttribute("user");
+        req.getSession().setAttribute("task", task);
+
+//        User user = (User) req.getSession().getAttribute("user");
         req.setAttribute("taskById", task);
 
 
