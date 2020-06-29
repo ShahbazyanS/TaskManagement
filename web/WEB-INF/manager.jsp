@@ -20,12 +20,13 @@
 <div class="manager">
     <div class="add_user">
         <h2> Add User: </h2>
-        <form action="/userRegister" method="post" enctype="multipart/form-data">
-            <input type="text" name="name" placeholder="name"><br>
-            <input type="text" name="surname" placeholder="surname"><br>
-            <input type="text" name="email" placeholder="email"><br>
-            <input type="text" name="password" placeholder="password"><br>
-            <select name="user_type">
+        <form action="/userRegister" method="post" enctype="multipart/form-data" onsubmit="validate()">
+            <p id="p" style="color: red"></p>
+            <input type="text" id="n" name="name" placeholder="name"><br>
+            <input type="text" id="s" name="surname" placeholder="surname"><br>
+            <input type="text" id="e" name="email" placeholder="email"><br>
+            <input type="text" id="pass" name="password" placeholder="password"><br>
+            <select name="user_type" id="t">
                 <option value="USER">USER</option>
                 <option value="MANAGER">MANAGER</option>
             </select><br>
@@ -33,13 +34,52 @@
             <input type="submit" value="register">
         </form>
     </div>
+    <script>function validate() {
+        var name = document.getElementById("n")
+        var surname = document.getElementById("s")
+        var email = document.getElementById("e")
+        var password = document.getElementById("pass")
+        var type = document.getElementById("t")
+
+        if (!name.value || name.value === " "){
+            name.style.border = "2px solid red";
+            document.getElementById("p").innerHTML = "please input name"
+            return false;
+        }
+        if (!surname.value || surname.value === " "){
+            surname.style.border = "2px solid red";
+            document.getElementById("p").innerHTML = "please input surname"
+            return false;
+        }
+
+        if (!email.value || password.value === " "){
+            email.style.border = "2px solid red";
+            document.getElementById("p").innerHTML = "please input email"
+            return false;
+        }
+        if (!password.value || password.value === " "){
+            password.style.border = "2px solid red";
+            document.getElementById("p").innerHTML = "please input password"
+            return false;
+        }
+        if (!type.value || password.type === " "){
+            type.style.border = "2px solid red";
+            document.getElementById("p").innerHTML = "please input user type"
+            return false;
+        }
+
+
+        return true;
+    }
+    </script>
     <div class="add_task">
       <h2>  Add Task: </h2>
+        <p id="pp" style="color: red"></p>
         <form action="/addTask" method="post">
-            <input type="text" name="name" placeholder="name"><br>
-            <textarea name="description" placeholder="description"></textarea><br>
-            <input type="date" name="deadline"><br>
-            <select name="status">
+            <input type="text" id="tn" name="name" placeholder="name"><br>
+            <textarea name="description" id="td" placeholder="description"></textarea><br>
+            <input type="date"  name="deadline"><br>
+            <select name="status" >
                 <option value="NEW">NEW</option>
                 <option value="IN_PROGRESS">IN_PROGRESS</option>
                 <option value="FINISHED">FINISHED</option>
@@ -57,7 +97,27 @@
         </form>
     </div>
 </div>
+<script>function validate() {
+    var name = document.getElementById("tn")
+    var description = document.getElementById("td")
 
+
+    if (!name.value || name.value === " "){
+        name.style.border = "2px solid red";
+        document.getElementById("pp").innerHTML = "please input name"
+        return false;
+    }
+    if (!description.value){
+        description.style.border = "2px solid red";
+        document.getElementById("pp").innerHTML = "please input surname"
+        return false;
+    }
+
+
+
+    return true;
+}
+</script>
 
 <div class="all_users">
     All Users:<br>

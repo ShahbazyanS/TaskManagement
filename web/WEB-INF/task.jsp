@@ -17,7 +17,7 @@
 %>
 
 <div class="comment">
-   <h2> All Tasks:</h2><br>
+    <h2> All Tasks:</h2><br>
     <table border="1">
         <tr>
             <th>name</th>
@@ -52,28 +52,28 @@
     </table>
 </div>
 <div class="add_comment">
-<form action="/addComment" method="post">
-    <input type="hidden" name="task_id" value="<%=task.getId()%>">
-    <input type="te" name="comment" placeholder="comment"><br>
-    <input type="submit" name="comment">
-</form>
+    <form action="/addComment" method="post">
+        <input type="hidden" name="task_id" value="<%=task.getId()%>">
+        <input type="te" name="comment" placeholder="comment"><br>
+        <input type="submit" name="comment">
+    </form>
 </div>
 <br>
 <div class="show_comments">
-<ul>
-    <%
-        for (Comment comment : comments) {%>
+    <ul>
+        <%
+            for (Comment comment : comments) {%>
 
-    <li><%=comment.getUser().getName()%> <%=comment.getUser().getSurname()%>
-        <%if (comment.getUser().getEmail().equals(user.getEmail()) | user.getUserType() == UserType.MANAGER) {%>
-        <a href="/deleteComment?id=<%=comment.getId()%>" style="text-decoration: none; color: red">
-            x
-        </a><%}%><br><%=comment.getComment()%>
-        - <%=comment.getDate()%>
-       </li>
+        <li><%=comment.getUser().getName()%> <%=comment.getUser().getSurname()%>
+            <%if (comment.getUser().getEmail().equals(user.getEmail()) | user.getUserType() == UserType.MANAGER) {%>
+            <a href="/deleteComment?id=<%=comment.getId()%>&task_id=<%=task.getId()%>" style="text-decoration: none; color: red">
+                x
+            </a><%}%><br><%=comment.getComment()%>
+            : <%=comment.getDate()%>
+        </li>
 
-    <%}%>
-</ul>
-   </div>
+        <%}%>
+    </ul>
+</div>
 </body>
 </html>
