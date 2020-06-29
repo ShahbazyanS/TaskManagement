@@ -75,10 +75,10 @@
     <div class="add_task">
       <h2>  Add Task: </h2>
         <p id="pp" style="color: red"></p>
-        <form action="/addTask" method="post">
+        <form action="/addTask" method="post" onsubmit="validateTask()">
             <input type="text" id="tn" name="name" placeholder="name"><br>
             <textarea name="description" id="td" placeholder="description"></textarea><br>
-            <input type="date"  name="deadline"><br>
+            <input type="date" id="date" name="deadline"><br>
             <select name="status" >
                 <option value="NEW">NEW</option>
                 <option value="IN_PROGRESS">IN_PROGRESS</option>
@@ -97,9 +97,10 @@
         </form>
     </div>
 </div>
-<script>function validate() {
+<script>function validateTask() {
     var name = document.getElementById("tn")
     var description = document.getElementById("td")
+    var date = document.getElementById("date")
 
 
     if (!name.value || name.value === " "){
@@ -109,7 +110,12 @@
     }
     if (!description.value){
         description.style.border = "2px solid red";
-        document.getElementById("pp").innerHTML = "please input surname"
+        document.getElementById("pp").innerHTML = "please input description"
+        return false;
+    }
+    if (!date.value){
+        date.style.border = "2px solid red";
+        document.getElementById("pp").innerHTML = "please input date"
         return false;
     }
 
