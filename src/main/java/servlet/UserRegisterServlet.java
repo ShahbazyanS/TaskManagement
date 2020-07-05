@@ -31,34 +31,35 @@ public class UserRegisterServlet extends HttpServlet {
         String type = req.getParameter("user_type");
 
 
-        UserManager userManager = new UserManager();
-        User user = User.builder()
-                .name(name)
-                .surname(surname)
-                .email(email)
-                .password(password)
-                .userType(UserType.valueOf(type))
-                .build();
-        for (Part part : req.getParts()) {
-            if (getFileName(part) != null) {
-                String fileName = System.currentTimeMillis() + getFileName(part);
-                String fullFileName = UPLOAD_DIR + File.separator + fileName;
-                part.write(fullFileName);
-                user.setPictureUrl(fileName);
+            UserManager userManager = new UserManager();
+            User user = User.builder()
+                    .name(name)
+                    .surname(surname)
+                    .email(email)
+                    .password(password)
+                    .userType(UserType.valueOf(type))
+                    .build();
+            for (Part part : req.getParts()) {
+                if (getFileName(part) != null) {
+                    String fileName = System.currentTimeMillis() + getFileName(part);
+                    String fullFileName = UPLOAD_DIR + File.separator + fileName;
+                    part.write(fullFileName);
+                    user.setPictureUrl(fileName);
+                }
             }
-        }
-        userManager.addUser(user);
-        resp.sendRedirect("/managerHome");
+            userManager.addUser(user);
+            resp.sendRedirect("/managerHome");
     }
 
-    private String getFileName(Part part) {
-        for (String content : part.getHeader("content-disposition").split(";")) {
-            if (content.trim().startsWith("filename")) {
-                String name = content.substring(content.indexOf("=") + 2, content.length() - 1);
-                return name.substring(name.lastIndexOf("\\")+1);
+        private String getFileName (Part part){
+            for (String content : part.getHeader("content-disposition").split(";")) {
+                if (content.trim().startsWith("filename")) {
+                    String name = content.substring(content.indexOf("=") + 2, content.length() - 1);
+                    return name.substring(name.lastIndexOf("\\") + 1);
 //                return content.substring(content.indexOf("=") + 2, content.length() - 1);
+                }
             }
-        }
+
         return null;
     }
 }

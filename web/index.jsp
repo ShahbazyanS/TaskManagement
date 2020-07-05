@@ -57,7 +57,7 @@
 <button id="show">show</button>
 </body>
 
-
+COMMEN<%--comment--%>
 <script src="/js/jquery-3.5.1.min.js" type="text/javascript"></script>
 <script src="/js/slider.js" type="text/javascript"></script>
 <script>
@@ -76,17 +76,11 @@
         var email = document.getElementById("email")
         var password = document.getElementById("password")
 
-
-
-
-
                 if (!email.value ) {
                     email.style.border = "2px solid red";
                     document.getElementById("p").innerHTML = "please input email and password";
                     return false;
                 }
-
-
                 if (!password.value ) {
                     password.style.border = "2px solid red";
                     document.getElementById("p").innerHTML = "please input email and password"

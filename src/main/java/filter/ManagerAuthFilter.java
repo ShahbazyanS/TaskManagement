@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/managerHome", "/addTask", "/userRegister"})
+@WebFilter(urlPatterns = {"/managerHome", "/addTask", "/userRegister", "/tasklist"})
 public class ManagerAuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
