@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 @WebServlet(urlPatterns = "/addTask")
 public class AddTaskServlet extends HttpServlet {
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd+");
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -31,55 +31,58 @@
                 <option value="MANAGER">MANAGER</option>
             </select><br>
             <input type="file" name="image"><br>
-            <input type="submit" value="register">
+            <input type="submit" id="button" class="btn btn-success" value="add">
         </form>
     </div>
-    <script>function validate() {
-        var name = document.getElementById("n")
-        var surname = document.getElementById("s")
-        var email = document.getElementById("e")
-        var password = document.getElementById("pass")
-        var type = document.getElementById("t")
+    <script src="../js/jquery-3.5.1.min.js" type="text/javascript"></script>
+    <script src="../js/valid.js" type="text/javascript"></script>
 
-        if (!name.value || name.value === " "){
-            name.style.border = "2px solid red";
-            document.getElementById("p").innerHTML = "please input name"
-            return false;
-        }
-        if (!surname.value || surname.value === " "){
-            surname.style.border = "2px solid red";
-            document.getElementById("p").innerHTML = "please input surname"
-            return false;
-        }
+    <%--    <script>function validate() {--%>
+    <%--        var name = document.getElementById("n")--%>
+    <%--        var surname = document.getElementById("s")--%>
+    <%--        var email = document.getElementById("e")--%>
+    <%--        var password = document.getElementById("pass")--%>
+    <%--        var type = document.getElementById("t")--%>
 
-        if (!email.value || password.value === " "){
-            email.style.border = "2px solid red";
-            document.getElementById("p").innerHTML = "please input email"
-            return false;
-        }
-        if (!password.value || password.value === " "){
-            password.style.border = "2px solid red";
-            document.getElementById("p").innerHTML = "please input password"
-            return false;
-        }
-        if (!type.value || password.type === " "){
-            type.style.border = "2px solid red";
-            document.getElementById("p").innerHTML = "please input user type"
-            return false;
-        }
+    <%--        if (name.val == ""){--%>
+    <%--            name.style.border = "2px solid red";--%>
+    <%--            document.getElementById("p").innerHTML = "please input name"--%>
+    <%--            return false;--%>
+    <%--        }else--%>
+    <%--        if (!surname.value || surname.value === " "){--%>
+    <%--            surname.style.border = "2px solid red";--%>
+    <%--            document.getElementById("p").innerHTML = "please input surname"--%>
+    <%--            return false;--%>
+    <%--        }else--%>
+
+    <%--        if (!email.value || password.value === " "){--%>
+    <%--            email.style.border = "2px solid red";--%>
+    <%--            document.getElementById("p").innerHTML = "please input email"--%>
+    <%--            return false;--%>
+    <%--        }else--%>
+    <%--        if (!password.value || password.value === " "){--%>
+    <%--            password.style.border = "2px solid red";--%>
+    <%--            document.getElementById("p").innerHTML = "please input password"--%>
+    <%--            return false;--%>
+    <%--        }else--%>
+    <%--        if (!type.value || password.type === " "){--%>
+    <%--            type.style.border = "2px solid red";--%>
+    <%--            document.getElementById("p").innerHTML = "please input user type"--%>
+    <%--            return false;--%>
+    <%--        }--%>
 
 
-        return true;
-    }
-    </script>
+    <%--        return true;--%>
+    <%--    }--%>
+    <%--//     </script>--%>
     <div class="add_task">
-      <h2>  Add Task: </h2>
+        <h2> Add Task: </h2>
         <p id="pp" style="color: red"></p>
-        <form action="/addTask" method="post" onsubmit="validateTask()">
+        <form action="/addTask" id="addTask" method="post" onsubmit="validateTask()">
             <input type="text" id="tn" name="name" placeholder="name"><br>
             <textarea name="description" id="td" placeholder="description"></textarea><br>
             <input type="date" id="date" name="deadline"><br>
-            <select name="status" >
+            <select name="status">
                 <option value="NEW">NEW</option>
                 <option value="IN_PROGRESS">IN_PROGRESS</option>
                 <option value="FINISHED">FINISHED</option>
@@ -97,28 +100,50 @@
         </form>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+
+        $("#addTask").submit(function (e) {
+            e.preventDefault()
+
+        })
+
+
+        let getList = function () {
+            $.ajax({
+                url: "/tasklist",
+                method: "GET",
+                success: function (result) {
+                    $("#all_tasks").html(result)
+                }
+            })
+        };
+        setInterval(getList, 2000);
+        {
+        }
+    })
+</script>
 <script>function validateTask() {
     var name = document.getElementById("tn")
     var description = document.getElementById("td")
     var date = document.getElementById("date")
 
 
-    if (!name.value || name.value === " "){
+    if (!name.value || name.value === " ") {
         name.style.border = "2px solid red";
         document.getElementById("pp").innerHTML = "please input name"
         return false;
     }
-    if (!description.value){
+    if (!description.value) {
         description.style.border = "2px solid red";
         document.getElementById("pp").innerHTML = "please input description"
         return false;
     }
-    if (!date.value){
+    if (!date.value) {
         date.style.border = "2px solid red";
         document.getElementById("pp").innerHTML = "please input date"
         return false;
     }
-
 
 
     return true;
@@ -155,34 +180,34 @@
             }%>
     </table>
 </div>
-<div class="all_tasks">
+<div id="all_tasks" class="all_tasks">
     All Tasks:<br>
-    <table border="1">
-        <tr>
-            <th>name</th>
-            <th>description</th>
-            <th>deadline</th>
-            <th>status</th>
-            <th>user</th>
-        </tr>
-        <%
-            for (Task task : tasks) { %>
-        <tr>
-            <td><a href="/taskById?task_id=<%=task.getId()%>"><%=task.getName()%>
-            </a>
-            </td>
-            <td><%=task.getDescription()%>
-            </td>
-            <td><%=task.getDeadline()%>
-            </td>
-            <td><%=task.getStatus().name()%>
-            </td>
-            <td><%=task.getUser().getName() + " " + task.getUser().getSurname()%>
-            </td>
-        </tr>
-        <%
-            }%>
-    </table>
+    <%--    <table border="1">--%>
+    <%--        <tr>--%>
+    <%--            <th>name</th>--%>
+    <%--            <th>description</th>--%>
+    <%--            <th>deadline</th>--%>
+    <%--            <th>status</th>--%>
+    <%--            <th>user</th>--%>
+    <%--        </tr>--%>
+    <%--        <%--%>
+    <%--            for (Task task : tasks) { %>--%>
+    <%--        <tr>--%>
+    <%--            <td><a href="/taskById?task_id=<%=task.getId()%>"><%=task.getName()%>--%>
+    <%--            </a>--%>
+    <%--            </td>--%>
+    <%--            <td><%=task.getDescription()%>--%>
+    <%--            </td>--%>
+    <%--            <td><%=task.getDeadline()%>--%>
+    <%--            </td>--%>
+    <%--            <td><%=task.getStatus().name()%>--%>
+    <%--            </td>--%>
+    <%--            <td><%=task.getUser().getName() + " " + task.getUser().getSurname()%>--%>
+    <%--            </td>--%>
+    <%--        </tr>--%>
+    <%--        <%--%>
+    <%--            }%>--%>
+    <%--    </table>--%>
 </div>
 
 </body>

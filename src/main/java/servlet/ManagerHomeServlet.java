@@ -23,8 +23,7 @@ public class ManagerHomeServlet extends HttpServlet {
         TaskManager taskManager = new TaskManager();
         UserManager userManager = new UserManager();
         List<User> allUser = userManager.getAllUser();
-        List<Task> allTasks = taskManager.getAllTasks();
-        req.setAttribute("tasks", allTasks);
+
         req.setAttribute("users", allUser);
         req.getRequestDispatcher("/WEB-INF/manager.jsp").forward(req, resp);
     }
